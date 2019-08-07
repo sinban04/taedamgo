@@ -3,8 +3,8 @@
 
 title: "태양을 담은 고로케"
 #url: "https://brave-submarine.cloudvent.net"
-url: "https://sinban04.github.io/taedamgo"
-baseurl: ""
+url: "https://sinban04.github.io/"
+baseurl: "taedamgo"
 google_analytics_key:
 google_maps_javascript_api_key:
 disqus_shortname:
