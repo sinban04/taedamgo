@@ -1,17 +1,108 @@
 ---
-layout: main
+title: Home
+description: The latest app to help you find new friends with common interests.
+bottom_image: https://unsplash.it/2000/1322?a=.png
+map:
+  latitude: 37.552770 
+  longitude: 126.921556 
+  address: "서울특별시 마포구 서교동 홍익로3길 39"
+  zoom: 13
+image: https://source.unsplash.com/WNAO036c6FM/2000x1322?a=.png
 ---
 
-{% for post in paginator.posts %}
-  <div class="chapter">
-    <a href="{{post.url | prepend: site.baseurl}}">
-      {% if post.img %}
-      <img src={{ "/assets/img/" | prepend: site.baseurl | append: post.img }} alt="{{post.title}}">
-      {% endif %}
-    </a>
-    <div class="chapter_inner">
-<!--      <p class="chapter_number">{{post.date | date: '%Y, %b %d'}}</p>
--->      <h3 class="chapter_title">{{post.title}}</h3>
-    </div>
-  </div>
-{% endfor %}
+<!-- <section class="hero" style="background-image: url({% include relative-src.html src=page.image %})"> -->
+<section class="hero" style="background-image: url({{ site.baseurl }}/images/main.jpeg)">
+	<div class="inner-hero text-container">
+		<div class="hero-text-container">
+			<h1 class="editable"> 인생 담은 식당 </h1>
+			<p class="subtext editable"> 태양을 담은 고로케의 새로운 이름 </p>
+      <!-- <div class="cta button alt"><a href="#">Join Now</a></div> -->
+		</div>
+	</div>
+	<div class="learn-more"><a href="#learn-more">See more <span class="arrow">&#x25BC;</span></a></div>
+</section>
+
+<div class="content">
+  <!-- First section -->
+	<section class="info" id="learn-more">
+		<div class="container flex">
+			<div class="text">
+        <h2 class="editable">태양을 담은 고로케, <br> 그 두번째 이야기.</h2>
+        <p class="editable">홍대의 맛집이었던 태담고가 <br> 새로운 이야기를 시작합니다.</p>
+			</div>
+			<div class="image">
+        <img class="editable" src="{{ site.baseurl }}/images/main1.jpeg" alt="Main1" />
+			</div>
+		</div>
+	</section>
+
+  <!-- Second section -->
+	<section class="info">
+		<div class="container flex">
+			<div class="text">
+				<h2 class="editable">고로케와 카레의 만남</h2>
+				<p class="editable"> 바삭한 고로케와 담백한 카레가 만나 새롭게 만드는 이야기. </p>
+			</div>
+			<div class="image">
+				<img class="editable" src="http://placehold.it/650x1300" alt="Screenshot" />
+			</div>
+		</div>
+	</section>
+
+  <!-- Third section -->
+	<section class="info">
+		<div class="container flex">
+			<div class="text">
+				<h2 class="editable">고로케 & 맥주</h2>
+				<p class="editable">고로케의 바삭함을 시원한 맥주와 함께 느껴보세요.</p>
+			</div>
+			<div class="image">
+				<img class="editable" src="http://placehold.it/650x1300" alt="Screenshot" />
+			</div>
+		</div>
+	</section>
+
+<!--
+	<section class="hero" style="background-image: url({% include relative-src.html src=page.bottom_image %})">
+		<div class="inner-hero text-container">
+			<div class="hero-text-container">
+				<h2 class="editable">Find your buddy today</h2>
+				<p class="subtext editable">It's free, fun and an exciting way to meet new people.</p>
+				<div class="cta button alt"><a href="#">Join Now</a></div>
+			</div>
+		</div>
+	</section>
+</div>
+-->
+
+<div class="map" id="map"></div>
+<script>
+	window.mapData = {{ page.map | jsonify }};
+
+	function initMap() {
+		var myOptions = {
+			scrollwheel: true,
+			draggable: false,
+			panControl: false,
+			disableDefaultUI: true,
+			styles: [{"featureType":"landscape.man_made","elementType":"geometry","stylers":[{"color":"#f7f1df"}]},{"featureType":"landscape.natural","elementType":"geometry","stylers":[{"color":"#d0e3b4"}]},{"featureType":"landscape.natural.terrain","elementType":"geometry","stylers":[{"visibility":"off"}]},{"featureType":"poi","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"poi.business","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"poi.medical","elementType":"geometry","stylers":[{"color":"#fbd3da"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#bde6ab"}]},{"featureType":"road","elementType":"geometry.stroke","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffe15f"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#efd151"}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"road.local","elementType":"geometry.fill","stylers":[{"color":"black"}]},{"featureType":"transit.station.airport","elementType":"geometry.fill","stylers":[{"color":"#cfb2db"}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#a2daf2"}]}],
+			zoom: window.mapData.zoom,
+			maxZoom: window.mapData.zoom,
+			minZoom: window.mapData.zoom,
+			center: new google.maps.LatLng(window.mapData.latitude, window.mapData.longitude),
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		};
+
+		var map = new google.maps.Map(document.getElementById('map'), myOptions);
+
+		var marker = new google.maps.Marker({
+			map: map,
+			position: new google.maps.LatLng(window.mapData.latitude, window.mapData.longitude)
+		});
+
+		google.maps.event.addDomListener(window, 'resize', function() {
+			map.setCenter(myOptions.center);
+		});
+	}
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key={{ site.google_maps_javascript_api_key }}&amp;callback=initMap"></script>
